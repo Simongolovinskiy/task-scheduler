@@ -15,11 +15,7 @@ class SQLAlchemyUnitOfWork(UnitOfWork):
 
     async def commit(self) -> None:
         await super().commit()
-        try:
-            await self.session.commit()
-        except Exception as e:
-            import traceback
-            traceback.print_exception(e)
+        await self.session.commit()
 
     async def rollback(self) -> None:
         await self.session.rollback()

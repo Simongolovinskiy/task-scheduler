@@ -30,12 +30,8 @@ class ThreadTaskQueueManager:
 
     def _run_task(self, task: Task):
         updated_task = task.run_task()
-        try:
-            self.uow.remove_task_from_cache(updated_task)
-        except Exception as e:
-            import traceback
-            traceback.print_exception(e)
 
+        self.uow.remove_task_from_cache(updated_task)
         self._update_task_in_db(updated_task)
 
     def _update_task_in_db(self, task: Task):
